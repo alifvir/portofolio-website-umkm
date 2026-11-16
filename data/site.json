@@ -1,0 +1,156 @@
+{
+  "nama": "Alif Virgiawan",
+  "peran": "Jasa website UMKM",
+  "wa": "6281223844841",
+  "wa_tampil": "0812-2384-4841",
+  "harga": 250000,
+  "tampilkan_freelance": false,
+  "komisi": 50000,
+  "url": "",
+  "pesan": {
+    "umum": "Halo Kak Alif, saya mau tanya soal website UMKM.",
+    "paket": "Halo Kak Alif, saya tertarik dengan website UMKM Rp250.000. Boleh dijelaskan paketnya?",
+    "freelance": "Halo Kak Alif, saya mau daftar jadi marketing freelance.\nNama: \nUmur: \nDomisili: ",
+    "klien": "Halo Kak Alif, saya mau tanya website untuk usaha saya.\nNama usaha: \nBidang usaha: \nKota: "
+  },
+  "buat_sendiri": {
+    "judul": "Alternatif tanpa jasa",
+    "teks": "Kalau kamu mau coba sendiri, ada layanan pembuat situs gratis seperti WordPress.com, Blogspot, atau Google Sites. Hasilnya jadi lebih cepat, tapi kamu mengurus sendiri tampilan, teks, dan pembaruannya.",
+    "tautan": [
+      {
+        "nama": "WordPress.com",
+        "url": "https://wordpress.com/"
+      },
+      {
+        "nama": "Blogspot",
+        "url": "https://www.blogger.com/"
+      },
+      {
+        "nama": "Google Sites",
+        "url": "https://sites.google.com/"
+      }
+    ]
+  },
+  "proyek": [
+    {
+      "slug": "warung-modern",
+      "nama": "Warung Modern by MK",
+      "bidang": "Toko kelontong dan hape",
+      "kota": "Tangerang",
+      "url": "https://warungmodern-bymk.pages.dev",
+      "domain": "warungmodern-bymk.pages.dev",
+      "ringkas": "Lima rak dagangan dalam satu nomor WhatsApp. Sembako, hape bergaransi, kosmetik, roti, dan dessert dikelompokkan per rak supaya pembeli tidak bingung memilih.",
+      "masalah": "Dagangannya lima jenis, dan masing-masing rak punya cara jual sendiri. Kalau semua ditumpuk di satu halaman, pembeli bingung harus mulai dari mana.",
+      "solusi": "Tiap rak jadi satu kartu dengan isi dan catatannya sendiri. Semua ujungnya menuju satu nomor WhatsApp, jadi penjual tetap melayani lewat chat seperti biasa.",
+      "isi": [
+        "Lima kartu rak yang bisa dibuka satu per satu",
+        "Katalog per rak, bukan satu daftar panjang",
+        "Info pembayaran dan cicilan di halaman terpisah",
+        "Tombol chat yang selalu tersedia"
+      ],
+      "fakta": "Menerima COD, transfer, debit, dan cicilan sampai 12 bulan untuk produk Hapeworld."
+    },
+    {
+      "slug": "perfect-flowers",
+      "nama": "Perfect Flowers",
+      "bidang": "Toko bunga",
+      "kota": "Tangerang",
+      "url": "https://perfectflowersweb.pages.dev",
+      "domain": "perfectflowersweb.pages.dev",
+      "ringkas": "Buket bunga yang dirakit hari itu, bukan stok jadi. Katalog dikelompokkan menurut budget, dan ketentuan DP ditulis terbuka di beranda.",
+      "masalah": "Pembeli buket sering hanya punya patokan budget, bukan nama rangkaian. Kalau katalog disusun per nama, mereka harus membuka banyak halaman dulu.",
+      "solusi": "Katalog dikelompokkan menurut rentang harga, dari Rp35.000 sampai rangkaian besar. Ketentuan DP 50 persen dan pengambilan di toko ditulis di beranda supaya tidak jadi pertanyaan berulang.",
+      "isi": [
+        "Katalog dengan saringan menurut rentang harga",
+        "Ketentuan pesanan tampil di beranda, bukan disembunyikan",
+        "Halaman kontak berisi alamat dan petunjuk lokasi",
+        "Foto buket dari toko sendiri, bukan foto stok"
+      ],
+      "fakta": "Isi bunga mengikuti stok pagi, jadi tidak ada dua buket yang persis sama."
+    },
+    {
+      "slug": "djamoe-damar",
+      "nama": "Djamoe Damar",
+      "bidang": "Jamu botolan",
+      "kota": "Talaga Bestari, Tangerang",
+      "url": "https://djamoe-damar.pages.dev",
+      "domain": "djamoe-damar.pages.dev",
+      "ringkas": "Tiga belas varian jamu botolan dengan harga yang sama. Komposisi, manfaat, dan sertifikat halal ditampilkan apa adanya.",
+      "masalah": "Tiga belas varian dengan harga sama gampang tertukar. Pembeli juga sering menanyakan hal yang sama: bahan, manfaat, dan sertifikat halal.",
+      "solusi": "Satu tabel berisi semua varian beserta catatan rasanya, ditambah foto botol dan sertifikat yang bisa dibuka. Pertanyaan yang berulang dijawab halaman, bukan di chat satu per satu.",
+      "isi": [
+        "Daftar 13 varian dengan catatan rasa dan komposisi",
+        "Sertifikat halal dan sertifikat merek bisa dibuka",
+        "Cara pesan dan pembayaran di halaman kontak",
+        "Kutipan pelanggan dari tangkapan layar chat asli"
+      ],
+      "fakta": "Halal Indonesia No. ID36110017000600324, merek terdaftar IDM001479970."
+    }
+  ],
+  "paket": [
+    {
+      "nama": "Satu halaman",
+      "teks": "Cukup untuk usaha yang informasinya belum banyak. Berisi profil, produk atau layanan, dan tombol chat."
+    },
+    {
+      "nama": "Beberapa halaman",
+      "teks": "Kalau produknya banyak dan perlu dipisah. Misalnya beranda, katalog, dan kontak."
+    },
+    {
+      "nama": "Revisi",
+      "teks": "Dikerjakan sampai hasilnya sesuai. Tidak dihitung per putaran."
+    },
+    {
+      "nama": "Tanpa langganan",
+      "teks": "Sekali bayar. Tidak ada tagihan bulanan dari saya."
+    }
+  ],
+  "tidak_termasuk": [
+    {
+      "nama": "Domain sendiri",
+      "teks": "Alamat seperti namausaha.com berbayar per tahun dan dibeli atas nama kamu. Saya bantu mengarahkan, biayanya terpisah."
+    },
+    {
+      "nama": "Jasa foto produk",
+      "teks": "Foto yang dipakai adalah foto yang kamu kirim. Kalau belum ada, saya pakai foto seadanya atau tanpa foto."
+    },
+    {
+      "nama": "Iklan dan promosi",
+      "teks": "Website adalah tempat tujuan. Mendatangkan pembeli lewat iklan adalah pekerjaan lain."
+    },
+    {
+      "nama": "Pembaruan rutin",
+      "teks": "Perubahan setelah serah terima dikenakan biaya terpisah, kecuali salah dari pihak saya."
+    }
+  ],
+  "proses": [
+    {
+      "nama": "Kirim info usaha",
+      "teks": "Nama usaha, jenis dagangan, kota, nomor WhatsApp, dan foto yang ada. Bisa lewat chat, tidak perlu rapi."
+    },
+    {
+      "nama": "Saya susun isinya",
+      "teks": "Saya tulis ulang teksnya dan pilih susunan halaman. Kalau ada yang kurang, saya tanya dulu sebelum lanjut."
+    },
+    {
+      "nama": "Kamu lihat hasilnya",
+      "teks": "Kamu buka tautannya dari HP sendiri. Sebutkan bagian yang mau diubah, saya perbaiki."
+    },
+    {
+      "nama": "Bayar setelah cocok",
+      "teks": "Pembayaran dilakukan setelah kamu menyatakan hasilnya sudah sesuai. Setelah itu tautan diserahkan penuh."
+    }
+  ],
+  "freelance": {
+    "langkah": [
+      "Hubungi pemilik UMKM di sekitarmu, lewat chat, DM, atau datang langsung.",
+      "Kirim tautan portofolio ini beserta penjelasan paketnya.",
+      "Kalau klien tertarik, teruskan ke saya. Menyusun website dan menagih pembayaran saya yang urus."
+    ],
+    "syarat": [
+      "Tidak perlu bisa coding atau desain.",
+      "Komisi dibayar setelah klien melunasi.",
+      "Tidak ada target dan tidak ada setoran."
+    ]
+  }
+}
