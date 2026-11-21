@@ -1,6 +1,9 @@
 # Hasil build, dibuat ulang oleh build.py (Cloudflare membangunnya sendiri)
 dist/
 
+# Materi marketing internal, bukan bagian situs. Repo ini publik.
+marketing/
+
 # Python
 __pycache__/
 *.pyc

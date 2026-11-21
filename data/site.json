@@ -1,15 +1,142 @@
 {
   "nama": "Alif Virgiawan",
+  "nama_lengkap": "Muhamad Alif Virgiawan",
+  "instagram": "https://www.instagram.com/alifvir/",
   "peran": "Jasa website UMKM",
   "wa": "6281223844841",
   "wa_tampil": "0812-2384-4841",
-  "harga": 250000,
+  "harga": 500000,
+  "harga_normal": 1200000,
   "tampilkan_freelance": false,
   "komisi": 50000,
-  "url": "",
+  "url": "https://spesialis-umkm.pages.dev",
+  "promo": {
+    "aktif": true,
+    "judul": "Punya kode promo",
+    "keterangan": "Masukkan kode dari teman atau dari unggahan saya. Diskon langsung aktif selama tujuh hari.",
+    "masa_hari": 7,
+    "kode": [
+      {
+        "kode": "UMKMMAJU",
+        "paket": "umkm",
+        "diskon": 50,
+        "label": "Website UMKM"
+      },
+      {
+        "kode": "MURAHBANGET",
+        "paket": "profil",
+        "diskon": 50,
+        "label": "Company Profile"
+      }
+    ]
+  },
+  "kredensial": {
+    "judul": "Tentang saya",
+    "nama": "Muhamad Alif Virgiawan",
+    "ringkas": "Fullstack developer dengan pengalaman lebih dari tiga tahun di sistem perbankan dan financial technology. Sehari-hari menulis Java Spring Boot di sisi belakang dan React di sisi depan, untuk aplikasi yang dipakai teller dan nasabah sungguhan.",
+    "kerja": {
+      "nama": "IT Consultant di Indivara Group",
+      "teks": "Sekarang menangani pengembangan dan perbaikan sistem untuk bank, termasuk penelusuran gangguan di lingkungan produksi."
+    },
+    "butir": [
+      {
+        "nama": "Core banking RCBC Filipina",
+        "teks": "REST API untuk modul inti perbankan, termasuk antarmuka teller dan onboarding nasabah. Java Spring Boot, React, MobX."
+      },
+      {
+        "nama": "Wealth management BCA",
+        "teks": "Pengembangan API reksa dana, migrasi kode lama ke Java 11, dan laporan keuangan dengan BIRT."
+      },
+      {
+        "nama": "Handle freelance",
+        "teks": "Menerima proyek lepas di luar jam kerja, dari website usaha sampai perbaikan sistem. Sudah lebih dari tiga tahun mengerjakan keduanya berjalan."
+      },
+      {
+        "nama": "Terbuka untuk kolaborasi",
+        "teks": "Senang diajak kerja sama, baik sebagai pengembang, penasihat teknis, maupun partner untuk usaha yang baru mulai. Sampaikan idenya, saya dengarkan dulu."
+      }
+    ],
+    "tautan": {
+      "nama": "Let's Connect",
+      "url": "https://www.linkedin.com/in/muhamad-alif-virgiawan"
+    }
+  },
+  "cerita": {
+    "judul": "Kenapa saya mengerjakan ini",
+    "teks": "Pasangan saya punya usaha kecil. Dari situ saya sadar banyak UMKM di luar sana punya dagangan bagus tapi tidak pernah ditemukan pembeli. Saya ingin membantu lebih banyak dari mereka dengan kemampuan yang saya punya."
+  },
+  "tier": [
+    {
+      "kunci": "umkm",
+      "nama": "Website UMKM",
+      "sub": "Untuk usaha yang baru mulai online",
+      "harga": 500000,
+      "harga_promo": 250000,
+      "satuan": "sekali bayar",
+      "kode": "UMKMMAJU",
+      "untuk": "Warung, toko kue, catering, jasa perbaikan, toko bunga, dan usaha rumahan yang pelanggannya datang lewat WhatsApp.",
+      "isi": [
+        "Satu halaman, semua informasi penting",
+        "Profil usaha, daftar produk atau layanan, dan harga",
+        "Tombol WhatsApp yang selalu terlihat",
+        "Ditulis dan disusun dari info yang kamu kirim",
+        "Tampilan dirapikan untuk layar HP lebih dulu",
+        "Alamat web milikmu sendiri"
+      ],
+      "tidak": [
+        "Nama domain .com berbayar",
+        "Akun email atas nama usaha",
+        "Katalog dengan keranjang belanja"
+      ]
+    },
+    {
+      "kunci": "profil",
+      "nama": "Company Profile",
+      "sub": "Untuk usaha yang sudah berjalan",
+      "harga": 1200000,
+      "harga_promo": 600000,
+      "satuan": "sekali bayar",
+      "kode": "MURAHBANGET",
+      "untuk": "Toko, klinik, kontraktor, kafe, sekolah, dan yayasan yang perlu dianggap serius sebelum orang menghubungi.",
+      "isi": [
+        "Beranda, tentang, layanan, dan kontak",
+        "Penulisan ulang seluruh teks",
+        "Galeri foto hasil kerja atau produk",
+        "Halaman katalog bila produknya banyak",
+        "Pengaturan dasar supaya muncul di hasil pencarian Google",
+        "Pemasangan Google Analytics dan Maps"
+      ],
+      "tidak": [
+        "Sistem pembayaran online",
+        "Akun pengguna dan login"
+      ]
+    },
+    {
+      "kunci": "custom",
+      "nama": "Custom Website",
+      "sub": "Kalau caranya jualan tidak bisa ditampung template",
+      "harga": null,
+      "satuan": "sesuai kebutuhan",
+      "untuk": "Butuh pemesanan, langganan, pembayaran sendiri, atau dasbor untuk mengelola data usaha.",
+      "isi": [
+        "Alur pemesanan sesuai cara kerja usahamu",
+        "Pembayaran lewat Midtrans, Xendit, atau Duitku",
+        "Dasbor untuk melihat dan mengubah data",
+        "Login pengguna dan hak akses berbeda",
+        "Integrasi ongkir JNE, J&T, atau SiCepat",
+        "Notifikasi WhatsApp otomatis",
+        "Integrasi sistem yang sudah kamu pakai",
+        "Pelatihan singkat cara memakainya"
+      ],
+      "tidak": [
+        "Aplikasi untuk App Store atau Play Store",
+        "Perangkat keras seperti mesin kasir"
+      ]
+    }
+  ],
   "pesan": {
     "umum": "Halo Kak Alif, saya mau tanya soal website UMKM.",
-    "paket": "Halo Kak Alif, saya tertarik dengan website UMKM Rp250.000. Boleh dijelaskan paketnya?",
+    "paket": "Halo Kak Alif, saya tertarik dengan paket website. Boleh dijelaskan yang cocok untuk usaha saya?",
     "freelance": "Halo Kak Alif, saya mau daftar jadi marketing freelance.\nNama: \nUmur: \nDomisili: ",
     "klien": "Halo Kak Alif, saya mau tanya website untuk usaha saya.\nNama usaha: \nBidang usaha: \nKota: "
   },
@@ -76,7 +203,7 @@
       "url": "https://djamoe-damar.pages.dev",
       "domain": "djamoe-damar.pages.dev",
       "ringkas": "Tiga belas varian jamu botolan dengan harga yang sama. Komposisi, manfaat, dan sertifikat halal ditampilkan apa adanya.",
-      "masalah": "Tiga belas varian dengan harga sama gampang tertukar. Pembeli juga sering menanyakan hal yang sama: bahan, manfaat, dan sertifikat halal.",
+      "masalah": "Tiga belas varian dengan harga sama gampang tertukar. Pembeli juga sering menanyakan hal yang sama, yaitu bahan, manfaat, dan sertifikat halal.",
       "solusi": "Satu tabel berisi semua varian beserta catatan rasanya, ditambah foto botol dan sertifikat yang bisa dibuka. Pertanyaan yang berulang dijawab halaman, bukan di chat satu per satu.",
       "isi": [
         "Daftar 13 varian dengan catatan rasa dan komposisi",
@@ -157,6 +284,28 @@
     {
       "nama": "Bayar setelah cocok",
       "teks": "Pembayaran dilakukan setelah kamu menyatakan hasilnya sudah sesuai. Setelah itu tautan diserahkan penuh."
+    }
+  ],
+  "tanya_jawab": [
+    {
+      "tanya": "Apakah benar bisa bayar setelah website jadi?",
+      "jawab": "Benar. Saya kirim tautan hasilnya lebih dulu, kamu buka dari HP sendiri, sebutkan bagian yang mau diubah, dan baru bayar setelah kamu menyatakan cocok."
+    },
+    {
+      "tanya": "Kalau saya tidak punya foto produk?",
+      "jawab": "Situs tetap bisa dibuat tanpa foto. Saya susun tampilannya memakai teks dan bidang warna supaya tidak terlihat kosong. Foto bisa ditambahkan kapan saja setelah ada."
+    },
+    {
+      "tanya": "Apakah ada biaya bulanan?",
+      "jawab": "Tidak ada tagihan bulanan. Harga paket dibayar sekali, dan situsnya tetap milikmu setelah diserahkan."
+    },
+    {
+      "tanya": "Berapa lama pengerjaannya?",
+      "jawab": "Website UMKM selesai satu hari kalau logo dan foto produk sudah lengkap. Company Profile dua sampai tiga hari kerja, tergantung hasil diskusi kita."
+    },
+    {
+      "tanya": "Apakah website saya akan muncul di Google?",
+      "jawab": "Saya siapkan halaman supaya mudah dibaca mesin pencari. Munculnya di halaman pertama Google tidak bisa dijanjikan siapa pun, karena itu ditentukan banyak hal di luar situs. Yang bisa saya pastikan, tidak ada kesalahan teknis yang menghalangi."
     }
   ],
   "freelance": {
