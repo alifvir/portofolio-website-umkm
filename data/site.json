@@ -85,6 +85,24 @@
         "Kutipan pelanggan dari tangkapan layar chat asli"
       ],
       "fakta": "Halal Indonesia No. ID36110017000600324, merek terdaftar IDM001479970."
+    },
+    {
+      "slug": "grace-kitchen",
+      "nama": "Grace's Kitchen",
+      "bidang": "Kue dan puding",
+      "kota": "Kalideres, Jakarta Barat",
+      "url": "https://graceskitchen.pages.dev",
+      "domain": "graceskitchen.pages.dev",
+      "ringkas": "Dapur kue sejak 2014 dengan dua belas produk dan enam halaman. Harga tertulis, katalog bisa disaring, dan layanan acara sampai kemitraan untuk kafe dijelaskan terpisah.",
+      "masalah": "Usahanya sudah berjalan lebih dari sepuluh tahun, tapi daftar menu dan harga masih berpindah lewat chat. Pembeli harus bertanya dulu untuk tahu isi dan harganya, dan pertanyaan yang sama terulang setiap hari.",
+      "solusi": "Dua belas produk dimasukkan ke katalog berharga tetap dengan penyaring per jenis. Layanan acara, kerja sama untuk kafe, dan cara memesan dipisah ke halamannya sendiri, jadi tiap pembaca langsung menuju bagian yang dibutuhkannya.",
+      "isi": [
+        "Katalog 12 produk dengan harga dan pilihan ukuran",
+        "Halaman acara untuk snack box, hantaran, dan hampers",
+        "Halaman kemitraan untuk kafe, kantor, dan institusi",
+        "Cara pesan, alamat dapur, dan titik ambil yang jelas"
+      ],
+      "fakta": "Berdiri sejak 2014 di Kalideres. Bahan halal dan alami, tanpa pengawet, dibuat setelah pesanan masuk, dan seluruh produknya tanpa babi dan tanpa lemak babi."
     }
   ],
   "paket": [

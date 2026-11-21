@@ -26,6 +26,20 @@ SITE = json.load(open(os.path.join(ROOT, "data", "site.json"), encoding="utf-8-s
 
 NAMA = SITE["nama"]
 PROYEK = {p["slug"]: p for p in SITE["proyek"]}
+JUM = len(SITE["proyek"])
+
+ANGKA = "nol satu dua tiga empat lima enam tujuh delapan sembilan".split()
+
+
+def jumlah(kapital=False):
+    """Jumlah proyek dalam kata, supaya teks ikut saat proyek ditambah."""
+    kata = ANGKA[JUM] if JUM < len(ANGKA) else str(JUM)
+    return kata.capitalize() if kapital else kata
+
+
+def urutan(n):
+    kata = ANGKA[n] if n < len(ANGKA) else str(n)
+    return "ke" + kata
 
 # Halaman freelance bisa dilepas dari situs tanpa dihapus, cukup lewat data/site.json.
 FREELANCE = bool(SITE.get("tampilkan_freelance"))
@@ -275,7 +289,7 @@ def halaman_beranda(g):
     return kepala(
         f"{NAMA} | Jasa website UMKM {rupiah(SITE['harga'])}, bayar setelah jadi",
         "Jasa pembuatan website untuk UMKM. Harga satu paket Rp250.000, revisi sampai cocok, "
-        "bayar setelah website jadi, tanpa tagihan bulanan. Tiga contoh hasil kerja bisa dibuka langsung.",
+        "bayar setelah website jadi, tanpa tagihan bulanan. " + jumlah(True) + " contoh hasil kerja bisa dibuka langsung.",
         "beranda",
         "/",
     ) + f"""
@@ -283,10 +297,10 @@ def halaman_beranda(g):
   <div class="wrap hero__isi">
     <div class="hero__teks">
       <h1>Website untuk usahamu, <span>jadi dulu baru bayar.</span></h1>
-      <p>Saya membuat website untuk usaha kecil: warung, toko bunga, jamu, dan sejenisnya. Kamu lihat hasilnya dari HP sendiri dulu, baru bicara soal bayaran.</p>
+      <p>Saya membuat website untuk usaha kecil: warung, toko bunga, jamu, kue, dan sejenisnya. Kamu lihat hasilnya dari HP sendiri dulu, baru bicara soal bayaran.</p>
       <div class="hero__aksi">
         {tombol_wa("Tanya lewat WhatsApp")}
-        <a class="tombol tombol--putih" href="#contoh">Lihat tiga contoh</a>
+        <a class="tombol tombol--putih" href="#contoh">Lihat {jumlah()} contoh</a>
       </div>
       <div class="pita-harga">
         <small>satu paket</small>
@@ -320,9 +334,9 @@ def halaman_beranda(g):
     <div class="kepala-bagian">
       <div>
         <span class="nomor">01</span>
-        <h2>Tiga situs yang sudah online.</h2>
+        <h2>{jumlah(True)} situs yang sudah online.</h2>
       </div>
-      <p class="kepala-bagian__teks">Bukan gambar contoh. Ketiga tautan di bawah bisa dibuka sekarang, dan isinya dipakai pemiliknya untuk berjualan.</p>
+      <p class="kepala-bagian__teks">Bukan gambar contoh. Ke{jumlah()} tautan di bawah bisa dibuka sekarang, dan isinya dipakai pemiliknya untuk berjualan.</p>
       <a class="tombol tombol--kecil kepala-bagian__tautan" href="/portofolio/">Lihat rinciannya</a>
     </div>
     <div class="grid-proyek">{kartu}</div>
@@ -433,8 +447,8 @@ def blok_penutup(nomor):
 def halaman_portofolio(g):
     kasus = "".join(blok_kasus(p, g) for p in SITE["proyek"])
     return kepala(
-        f"Portofolio website UMKM | {NAMA}",
-        "Tiga website UMKM yang sudah online: toko kelontong, toko bunga, dan jamu botolan. "
+        "Portofolio website UMKM | " + NAMA,
+        jumlah(True) + " website UMKM yang sudah online, dari toko kelontong sampai dapur kue. "
         "Tampilan layar lebar dan telepon, beserta alasan di balik susunannya.",
         "portofolio",
         "/portofolio/",
@@ -442,7 +456,7 @@ def halaman_portofolio(g):
 <div class="page-head">
   <div class="wrap">
     <span class="nomor">Portofolio</span>
-    <h1>Tiga situs, semuanya bisa dibuka sekarang.</h1>
+    <h1>{jumlah(True)} situs, semuanya bisa dibuka sekarang.</h1>
     <p>Tiap proyek ditampilkan dalam dua ukuran layar karena pembeli UMKM hampir selalu membuka dari HP. Tautan di tiap bagian menuju situs aslinya, bukan gambar.</p>
   </div>
 </div>
@@ -453,7 +467,7 @@ def halaman_portofolio(g):
   <div class="wrap panel__isi">
     <div>
       <span class="nomor">Berikutnya</span>
-      <h2>Usahamu bisa jadi yang keempat.</h2>
+      <h2>Usahamu bisa jadi yang {urutan(JUM + 1)}.</h2>
       <p>Ceritakan daganganmu lewat WhatsApp. Saya bantu menentukan apa saja yang perlu ada di situs, tanpa istilah teknis yang membingungkan.</p>
       <div class="panel__aksi">
         {tombol_wa("Ceritakan usahamu", SITE["pesan"]["klien"], "tombol tombol--kuning")}
