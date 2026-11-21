@@ -529,20 +529,10 @@ button:not(:disabled) {
   font-weight: 800;
 }
 
-.promo__lepas {
-  min-height: 28px;
-  padding: 2px 8px;
-  border: 1px solid rgba(255, 251, 239, 0.4);
-  border-radius: 3px;
-  background: transparent;
-  color: var(--kertas);
-  font-size: 0.74rem;
-  font-weight: 600;
-}
-
-.promo__lepas:hover {
-  border-color: var(--kuning);
-  color: var(--kuning);
+.promo__input:disabled,
+.promo__tombol:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .promo__dot,
@@ -959,11 +949,17 @@ button:not(:disabled) {
   padding-top: 24px;
 }
 
-/* Custom: tidak punya angka, tapi tetap memakai ukuran dan posisi yang sama
-   sebagai angka harga supaya ketiga kartu terbaca seragam. */
-.paket__angka--teks {
-  font-size: clamp(1.35rem, 2.4vw, 1.7rem);
-  line-height: 1.2;
+/* Custom: tidak punya angka, tapi harus duduk di baris yang sama dengan
+   angka harga lain. Ukurannya lebih kecil dan dipaksa satu baris, karena
+   kalau terpotong dua baris ia terlihat lebih besar dari kedua tetangganya
+   dan menggeser isi di bawahnya.
+   Ditulis dua kelas sekaligus supaya menang dari .paket__angka tanpa
+   bergantung pada urutan penulisan. */
+.paket__angka.paket__angka--teks {
+  font-size: clamp(1.02rem, 1.5vw, 1.18rem);
+  line-height: 1.35;
+  letter-spacing: -0.005em;
+  white-space: nowrap;
 }
 
 .paket__kepala {
@@ -989,6 +985,15 @@ button:not(:disabled) {
   margin-top: 20px;
   padding-top: 20px;
   border-top: var(--garis-rambut);
+}
+
+.paket__angka {
+  display: block;
+  font-family: var(--serif);
+  font-size: clamp(1.9rem, 3.4vw, 2.4rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1;
 }
 
 .paket__angka {

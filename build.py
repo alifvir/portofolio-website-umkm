@@ -262,7 +262,6 @@ def bilah_promo():
         <span data-promo-teks></span>
       </span>
       <span class="promo__waktu" data-promo-waktu>0 hari</span>
-      <button class="promo__lepas" type="button" data-promo-lepas>Lepas</button>
     </p>
   </div>
 </div>"""

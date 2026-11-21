@@ -57,9 +57,26 @@ berubah seketika, dan hitungan mundur muncul.
 4. Ketiga kartu langsung berganti. Harga paket yang cocok turun 50%, harga aslinya
    dicoret di bawahnya, dan penghitung "sisa 6 hari 23:59:59" muncul di kartu itu
    dan di bilah atas. Kartu paket lain tidak berubah.
-5. Hitungan mundur berjalan tiap detik. Saat habis, harga kembali normal sendiri,
-   kode dihapus dari peramban, dan formulir muncul lagi. Tidak perlu tindakan apa pun.
-6. Ada tombol **Lepas** untuk membatalkan lebih cepat.
+5. Hitungan mundur berjalan tiap detik. Tidak ada tombol batal.
+
+### Satu perangkat, satu kali klaim
+
+Setelah hitungan mundur habis, **perangkat itu tidak bisa memakai harga promo lagi**.
+Bukan hanya harga yang kembali normal, tapi formulirnya juga dinonaktifkan dan
+pesannya tetap tampil: "Jatah promo di perangkat ini sudah terpakai."
+
+Mekanismenya: penanda di `localStorage` **tidak dihapus** saat promo habis. Justru
+penanda yang sudah kedaluwarsa itu yang membuat sistem tahu perangkat ini pernah
+klaim, lalu menolak semua kode berikutnya.
+
+Konsekuensi yang perlu diketahui:
+
+- Satu perangkat hanya bisa mengklaim **satu** kode, sekali. Kalau sudah pakai
+  `UMKMMAJU`, kode `MURAHBANGET` di perangkat yang sama akan ditolak.
+- Menghapus data situs, mode privat, atau ganti peramban akan mengosongkan penanda,
+  jadi promo bisa diklaim lagi. Tanpa server, ini batas yang wajar.
+- Ini juga berarti orang bisa mendapat promo lagi dengan membersihkan data peramban.
+  Kalau perlu benar-benar sekali per orang, harus ada backend.
 
 ### Kalau di-refresh, kodenya masih ada?
 
@@ -71,8 +88,9 @@ dinding yang bisa diubah pengunjung.
 Artinya:
 
 - Refresh, tutup tab, buka lagi halaman lain → kode tetap aktif sampai waktunya habis.
+- Setelah habis, refresh pun tetap terkunci. Promo tidak kembali.
 - Boolean localStorage dibersihkan (mode privat, "hapus data situs", ganti peramban) →
-  kode hilang, harus dimasukkan lagi. Ini batas wajar tanpa server.
+  penanda hilang, kode bisa diklaim lagi. Ini batas wajar tanpa server.
 - Perangkat yang jamnya salah bisa mendapat hitungan yang salah. Tidak berbahaya,
   hanya angkanya bergeser.
 

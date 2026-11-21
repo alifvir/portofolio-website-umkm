@@ -1,11 +1,11 @@
 // Menu ponsel dan kode promo.
 //
-// Kode promo berlaku lokal di peramban pengunjung: disimpan di localStorage
-// berisi kode, paket, dan waktu habis. Tidak ada server, jadi tidak ada data
-// pribadi yang dikirim ke mana pun.
+// Aturan promo: satu perangkat hanya boleh mengklaim satu kode, sekali.
+// Setelah hitungan mundur habis, perangkat itu tidak bisa memakai harga promo
+// lagi selamanya. Penandanya disimpan di localStorage, bukan hanya dihapus,
+// jadi memuat ulang halaman tidak mengembalikan promo.
 //
-// Batas waktunya memakai WIB tetap (UTC+7) supaya "tujuh hari" berarti hal yang
-// sama bagi pengunjung dari zona waktu mana pun.
+// Tidak ada server, jadi tidak ada data pribadi yang dikirim ke mana pun.
 
 (function () {
   "use strict";
@@ -61,8 +61,6 @@
     var bilah = document.querySelector("[data-promo]");
     if (!bilah) return;
 
-    // Pengunjung yang meminta gerak dikurangi tetap mendapat pemulihan gulir,
-    // tapi tanpa requestAnimationFrame bertingkat: satu kali saja, seketika.
     var tenang =
       window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -115,7 +113,6 @@
   var aktif = wadah.querySelector("[data-promo-aktif]");
   var teksAktif = wadah.querySelector("[data-promo-teks]");
   var waktu = wadah.querySelector("[data-promo-waktu]");
-  var lepas = wadah.querySelector("[data-promo-lepas]");
 
   function rupiah(n) {
     return "Rp" + n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
@@ -135,16 +132,17 @@
     return dua(h) + ":" + dua(m) + ":" + dua(s);
   }
 
+  /* Tiga keadaan yang disimpan:
+       belum pernah klaim  -> tidak ada apa-apa di localStorage
+       sedang berjalan     -> {habis} masih di depan
+       sudah pernah klaim  -> {habis} sudah lewat, dan penandanya SENGAJA
+                              dibiarkan ada supaya tidak bisa klaim ulang */
   function baca() {
     try {
       var teks = localStorage.getItem(SIMPAN);
       if (!teks) return null;
       var d = JSON.parse(teks);
       if (!d || !d.kode || !d.habis) return null;
-      if (Date.now() > d.habis) {
-        localStorage.removeItem(SIMPAN);
-        return null;
-      }
       return d;
     } catch (e) {
       return null;
@@ -156,14 +154,6 @@
       localStorage.setItem(SIMPAN, JSON.stringify(d));
     } catch (e) {
       /* mode privat: promo tetap jalan selama halaman terbuka */
-    }
-  }
-
-  function hapus() {
-    try {
-      localStorage.removeItem(SIMPAN);
-    } catch (e) {
-      /* abaikan */
     }
   }
 
@@ -215,20 +205,12 @@
     });
   }
 
-  function tampilkanAktif(d) {
-    var cocok = null;
-    for (var i = 0; i < daftarKode.length; i++) {
-      if (daftarKode[i].kode === d.kode) cocok = daftarKode[i];
-    }
-    if (!cocok) return;
-
+  function tampilkanAktif(d, cocok) {
     if (form) form.hidden = true;
     if (aktif) aktif.hidden = false;
     if (pesan) pesan.hidden = true;
 
     if (teksAktif) {
-      /* Diringkas supaya muat satu baris di layar 390px. Nama paketnya
-         sudah terlihat dari harga yang berubah di kartu. */
       teksAktif.textContent = "Kode " + cocok.kode + " aktif, " + cocok.diskon + "%";
       teksAktif.setAttribute("title", "Berlaku untuk " + cocok.label);
     }
@@ -239,21 +221,37 @@
     if (jeda) clearInterval(jeda);
     jeda = setInterval(function () {
       var masih = baca();
-      if (!masih) {
-        clearInterval(jeda);
-        jeda = null;
-        bersihkan(true);
+      if (!masih || Date.now() >= masih.habis) {
+        if (jeda) {
+          clearInterval(jeda);
+          jeda = null;
+        }
+        habiskan();
         return;
       }
       segarkanHitungan(masih.habis);
     }, 1000);
   }
 
-  function bersihkan() {
-    hapus();
-    if (form) form.hidden = false;
-    if (aktif) aktif.hidden = true;
+  /* Hitungan selesai: harga kembali normal, dan kode TIDAK dihapus dari
+     localStorage. Justru penandanya yang mencegah perangkat ini memakai
+     harga promo lagi. Formulirnya dinonaktifkan, bukan disembunyikan, karena
+     pesan penjelasnya ada di dalam formulir itu. */
+  function habiskan() {
     terapkan(false, null);
+    if (input) input.value = "";
+    if (aktif) aktif.hidden = true;
+    if (form) {
+      var isi = form.querySelectorAll("input, button");
+      for (var i = 0; i < isi.length; i++) {
+        isi[i].disabled = true;
+        isi[i].setAttribute("aria-disabled", "true");
+      }
+    }
+    tulisPesan(
+      "Jatah promo di perangkat ini sudah terpakai. Harga promo tidak bisa dipakai lagi di sini.",
+      true
+    );
   }
 
   function tulisPesan(teks, salah) {
@@ -263,9 +261,31 @@
     pesan.setAttribute("data-salah", salah ? "true" : "false");
   }
 
+  function cariKode(isi) {
+    for (var i = 0; i < daftarKode.length; i++) {
+      if (daftarKode[i].kode === isi) return daftarKode[i];
+    }
+    return null;
+  }
+
   if (form) {
     form.addEventListener("submit", function (e) {
       e.preventDefault();
+
+      /* Sudah pernah klaim di perangkat ini? Tolak, apa pun kodenya. */
+      var lama = baca();
+      if (lama) {
+        if (Date.now() >= lama.habis) {
+          habiskan();
+          return;
+        }
+        var lamaCocok = cariKode(lama.kode);
+        if (lamaCocok) {
+          tampilkanAktif(lama, lamaCocok);
+          return;
+        }
+      }
+
       var isi = (input && input.value ? input.value : "").trim().toUpperCase();
 
       if (!isi) {
@@ -273,11 +293,7 @@
         return;
       }
 
-      var cocok = null;
-      for (var i = 0; i < daftarKode.length; i++) {
-        if (daftarKode[i].kode === isi) cocok = daftarKode[i];
-      }
-
+      var cocok = cariKode(isi);
       if (!cocok) {
         tulisPesan("Kode tidak dikenali. Coba periksa lagi hurufnya.", true);
         return;
@@ -291,25 +307,23 @@
         habis: sekarang + masaHari * HARI,
       };
       simpan(d);
-      tampilkanAktif(d);
+      tampilkanAktif(d, cocok);
     });
   }
 
-  if (lepas) {
-    lepas.addEventListener("click", function () {
-      if (jeda) {
-        clearInterval(jeda);
-        jeda = null;
-      }
-      bersihkan();
-      tulisPesan("Kode promo dilepas. Harga kembali normal.", false);
-    });
-  }
-
+  /* Keadaan saat halaman dibuka. */
   var tersimpan = baca();
-  if (tersimpan) {
-    tampilkanAktif(tersimpan);
-  } else {
+  if (!tersimpan) {
     terapkan(false, null);
+  } else if (Date.now() >= tersimpan.habis) {
+    // Sudah pernah klaim dan waktunya lewat: tetap tertutup.
+    habiskan();
+  } else {
+    var cocokAwal = cariKode(tersimpan.kode);
+    if (cocokAwal) {
+      tampilkanAktif(tersimpan, cocokAwal);
+    } else {
+      terapkan(false, null);
+    }
   }
 })();
