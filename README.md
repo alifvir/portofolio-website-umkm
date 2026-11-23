@@ -39,10 +39,44 @@ dan `harga_promo` bersama-sama supaya angkanya konsisten.
 Bilah navy di paling atas berisi formulir kode. Pengunjung mengetik kode, harga
 berubah seketika, dan hitungan mundur muncul.
 
-| Kode | Paket | Harga normal | Dengan kode |
-|---|---|---|---|
-| `UMKMMAJU` | Website UMKM | Rp500.000 | Rp250.000 |
-| `MURAHBANGET` | Company Profile | Rp1.200.000 | Rp600.000 |
+| Kode | Paket | Harga normal | Dengan kode | Masa berlaku |
+|---|---|---|---|---|
+| `UMKMMAJU` | Website UMKM | Rp500.000 | Rp250.000 | 7 hari |
+| `THREADS50` | Website UMKM | Rp500.000 | Rp250.000 | **14 hari** |
+| `MURAHBANGET` | Company Profile | Rp1.200.000 | Rp600.000 | 7 hari |
+
+Masa berlaku bisa beda per kode: isi `masa_hari` pada entri kode. Kode tanpa `masa_hari`
+ikut nilai global `promo.masa_hari`.
+
+`THREADS50` khusus kampanye Threads, dan sengaja **14 hari, bukan 7**. Alasannya: calon yang
+membuka tautan hari ini sering baru punya dananya di hari ke-10, dan pola satu perangkat
+membuat promo hangus selamanya setelah lewat. `UMKMMAJU` tetap 7 hari karena itu kode yang
+disebar umum, bukan dari percakapan langsung.
+
+Kalau nanti masa berlaku `THREADS50` diubah, angka itu otomatis ikut di kartu paket dan panel
+penutup, karena `build.py` membacanya dari `site.json`.
+
+### Tautan referal: `?kode=`
+
+Kode bisa dibawa lewat tautan, tanpa calon mengetik apa pun:
+
+```
+https://spesialis-umkm.pages.dev/?kode=THREADS50
+```
+
+Begitu halaman dibuka, `site.js` membaca `?kode=`, mencocokkannya dengan daftar yang sama,
+lalu memakai jalur `klaim()` yang juga dipakai formulir. Akibatnya perilakunya identik:
+hitungan 7 hari mulai saat halaman dibuka, dan satu perangkat tetap hanya sekali klaim.
+
+Yang perlu diketahui:
+
+- Tautan `?kode=` **tidak menulis apa pun ke riwayat** dan tidak mengubah URL. Kalau halaman
+  di-refresh dengan parameter yang sama, kode yang sudah tersimpan yang dipakai, bukan klaim baru.
+- Kalau perangkat itu sudah pernah klaim dan jatahnya habis, tautan `?kode=` akan menampilkan
+  pesan "Jatah promo di perangkat ini sudah terpakai" dan tidak menurunkan harga. Ini konsisten
+  dengan formulir.
+- Kode tidak dikenal di tautan → pesan "Kode tidak dikenali", harga tidak berubah.
+- Huruf besar kecil tidak berpengaruh, sama seperti formulir.
 
 ### Urutan kejadian setelah deploy
 
@@ -80,7 +114,7 @@ Konsekuensi yang perlu diketahui:
 
 ### Kalau di-refresh, kodenya masih ada?
 
-**Ya, selama tujuh hari sejak kode dipakai.** Kode disimpan di `localStorage`
+**Ya, selama masa berlaku kode itu.** Kode disimpan di `localStorage`
 peramban itu dengan nama `promoWebsiteUMKM`, berisi kode, paket, waktu mulai, dan
 waktu habis. Waktu habisnya dihitung dari jam sistem (`Date.now()`), bukan jam
 dinding yang bisa diubah pengunjung.
@@ -100,13 +134,13 @@ Artinya:
 
 - Pengunjung yang memasukkan kode di laptop tidak otomatis mendapat diskon di HP-nya.
 - Dua orang berbeda harus memasukkan kode masing-masing, dan masing-masing mendapat
-  tujuh hari sendiri.
-- Kode tidak bisa dibagikan lewat tautan. Harus diketik ulang.
+  masa berlakunya sendiri.
+- Kode bisa dibagikan lewat tautan `?kode=`, tapi yang tersimpan tetap di perangkat
+  pengunjung. Yang membuka tautan mendapat masa berlakunya sendiri.
 
-Ini konsekuensi memilih tanpa server. Kalau nanti ingin kode bisa dibagikan lewat
-tautan, ada satu orang memakai kode yang sama, atau ingin tahu siapa memakai kode apa,
-itu perlu backend kecil (Cloudflare Worker + KV, gratis di kuota rendah). Bilang saja
-kalau mau dibuatkan.
+Ini konsekuensi memilih tanpa server. Kalau nanti ingin satu kode terikat ke satu orang,
+atau ingin tahu **siapa** memakai kode apa, itu perlu backend kecil (Cloudflare Worker + KV,
+gratis di kuota rendah). Bilang saja kalau mau dibuatkan.
 
 ### Mematikan atau menambah kode
 

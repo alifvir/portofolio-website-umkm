@@ -98,12 +98,13 @@ supaya tajam di semua ukuran.
 Bilah navy di paling atas, menempel saat digulir.
 
 - Pengunjung mengetik kode, harga berubah seketika, hitungan mundur muncul.
-- Dua kode aktif: `UMKMMAJU` (Website UMKM, 50%) dan `MURAHBANGET`
+- Tiga kode aktif: `UMKMMAJU` dan `THREADS50` (Website UMKM, 50%), `MURAHBANGET`
   (Company Profile, 50%). Huruf besar kecil tidak masalah.
-- Berlaku **tujuh hari** sejak kode dipakai, disimpan di localStorage
+- `THREADS50` juga bisa dibawa lewat tautan `?kode=THREADS50`, jadi tidak perlu mengetik.
+- Masa berlaku **per kode**: `UMKMMAJU` 7 hari, `THREADS50` 14 hari, disimpan di localStorage
   peramban pengunjung. Tidak ada server, jadi tidak ada data pribadi terkirim.
 - Hitungan muncul di dua tempat: bilah atas dan kartu paket yang kodenya dipakai.
-- Ada tombol "Lepas" untuk kembali ke harga normal.
+- Tidak ada tombol batal. Hitungan berjalan sampai habis, dan perangkat itu terkunci.
 
 ### Bug gulir saat mengetik kode
 

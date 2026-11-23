@@ -106,7 +106,14 @@
   }
 
   var daftarKode = data.kode || [];
-  var masaHari = data.masa_hari || 7;
+  var masaUmum = data.masa_hari || 7;
+
+  /* Durasi promo bisa beda per kode: kode dari tautan Threads lebih panjang
+     daripada kode yang diketik sendiri, supaya calon punya waktu berpikir. */
+  function masaUntuk(cocok) {
+    return (cocok && cocok.masa_hari) || masaUmum;
+  }
+
   var form = wadah.querySelector("[data-promo-form]");
   var input = wadah.querySelector("[data-promo-input]");
   var pesan = wadah.querySelector("[data-promo-pesan]");
@@ -268,53 +275,77 @@
     return null;
   }
 
+  /* Dipakai dua pintu: formulir di bilah atas, dan tautan referal ?kode=...
+     Keduanya harus berperilaku sama, termasuk penolakan klaim kedua. */
+  function klaim(mentah) {
+    /* Sudah pernah klaim di perangkat ini? Tolak, apa pun kodenya. */
+    var lama = baca();
+    if (lama) {
+      if (Date.now() >= lama.habis) {
+        habiskan();
+        return false;
+      }
+      var lamaCocok = cariKode(lama.kode);
+      if (lamaCocok) {
+        tampilkanAktif(lama, lamaCocok);
+        return true;
+      }
+    }
+
+    var isi = (mentah || "").trim().toUpperCase();
+
+    if (!isi) {
+      tulisPesan("Kode promonya diisi dulu ya.", true);
+      return false;
+    }
+
+    var cocok = cariKode(isi);
+    if (!cocok) {
+      tulisPesan("Kode tidak dikenali. Coba periksa lagi hurufnya.", true);
+      return false;
+    }
+
+    var sekarang = Date.now();
+    var d = {
+      kode: cocok.kode,
+      paket: cocok.paket,
+      mulai: sekarang,
+      habis: sekarang + masaUntuk(cocok) * HARI,
+    };
+    simpan(d);
+    tampilkanAktif(d, cocok);
+    return true;
+  }
+
   if (form) {
     form.addEventListener("submit", function (e) {
       e.preventDefault();
-
-      /* Sudah pernah klaim di perangkat ini? Tolak, apa pun kodenya. */
-      var lama = baca();
-      if (lama) {
-        if (Date.now() >= lama.habis) {
-          habiskan();
-          return;
-        }
-        var lamaCocok = cariKode(lama.kode);
-        if (lamaCocok) {
-          tampilkanAktif(lama, lamaCocok);
-          return;
-        }
-      }
-
-      var isi = (input && input.value ? input.value : "").trim().toUpperCase();
-
-      if (!isi) {
-        tulisPesan("Kode promonya diisi dulu ya.", true);
-        return;
-      }
-
-      var cocok = cariKode(isi);
-      if (!cocok) {
-        tulisPesan("Kode tidak dikenali. Coba periksa lagi hurufnya.", true);
-        return;
-      }
-
-      var sekarang = Date.now();
-      var d = {
-        kode: cocok.kode,
-        paket: cocok.paket,
-        mulai: sekarang,
-        habis: sekarang + masaHari * HARI,
-      };
-      simpan(d);
-      tampilkanAktif(d, cocok);
+      klaim(input && input.value);
     });
+  }
+
+  /* Tautan referal: /?kode=UMKMMAJU langsung mengaktifkan promo, tanpa
+     mengetik. Kode yang sama lewat formulir tetap jalan seperti biasa. */
+  function kodeDariTautan() {
+    var cocok;
+    try {
+      cocok = new URLSearchParams(window.location.search).get("kode");
+    } catch (e) {
+      return "";
+    }
+    return (cocok || "").trim().toUpperCase();
   }
 
   /* Keadaan saat halaman dibuka. */
   var tersimpan = baca();
   if (!tersimpan) {
-    terapkan(false, null);
+    var dariTautan = kodeDariTautan();
+    if (dariTautan) {
+      if (input) input.value = dariTautan;
+      if (!klaim(dariTautan)) terapkan(false, null);
+    } else {
+      terapkan(false, null);
+    }
   } else if (Date.now() >= tersimpan.habis) {
     // Sudah pernah klaim dan waktunya lewat: tetap tertutup.
     habiskan();

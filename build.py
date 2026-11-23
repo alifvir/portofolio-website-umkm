@@ -230,7 +230,13 @@ def data_promo():
     muatan = {
         "masa_hari": PROMO.get("masa_hari", 7),
         "kode": [
-            {"kode": k["kode"], "paket": k["paket"], "diskon": k["diskon"], "label": k["label"]}
+            {
+                "kode": k["kode"],
+                "paket": k["paket"],
+                "diskon": k["diskon"],
+                "label": k["label"],
+                "masa_hari": masa_kode(k),
+            }
             for k in KODE
         ],
     }
@@ -431,13 +437,22 @@ def blok_kasus(p, g):
 </article>"""
 
 
+def masa_kode(k):
+    """Durasi promo per kode. Kode tanpa `masa_hari` ikut nilai global."""
+    return k.get("masa_hari") or PROMO.get("masa_hari", 7)
+
+
+def kode_paket(kunci):
+    """Semua kode yang berlaku untuk satu paket, urut sesuai site.json."""
+    return [k for k in KODE if k["paket"] == kunci]
+
+
 def kartu_paket(t):
     """Satu kartu harga. Semua kartu berlatar sama, tidak ada yang dibedakan warna."""
     isi = "".join("<li>%s</li>" % escape(i) for i in t["isi"])
     ada_promo = bool(t.get("harga_promo"))
-    kode = t.get("kode")
-    diskon = next((k["diskon"] for k in KODE if k["kode"] == kode), 50)
-    masa = PROMO.get("masa_hari", 7)
+    daftar = kode_paket(t["kunci"])
+    diskon = daftar[0]["diskon"] if daftar else 50
     awalan = "<small>mulai</small>" if t["satuan"] == "mulai dari" else ""
 
     if not t.get("harga"):
@@ -461,11 +476,20 @@ def kartu_paket(t):
             '<span class="promo__dot" aria-hidden="true"></span>'
             'sisa <span data-sisa="%s">0 hari</span></span>' % (t["kunci"], t["kunci"])
         )
+        # Kalau satu paket punya beberapa kode, keduanya ditulis beserta durasinya,
+        # karena durasinya bisa berbeda (kode dari tautan lebih panjang).
+        if len(daftar) > 1:
+            rincian = " atau ".join(
+                '<span class="paket__kode">%s</span> (%d hari)' % (escape(k["kode"]), masa_kode(k))
+                for k in daftar
+            )
+        else:
+            rincian = '<span class="paket__kode">%s</span>' % escape(daftar[0]["kode"] if daftar else "")
         catatan = (
-            '<p class="paket__catatan"><strong>Pakai kode <span class="paket__kode">%s</span> '
-            "di atas halaman.</strong> Harga langsung turun %d%% dan berlaku %d hari "
-            "sejak kode dipakai. Tanpa kode, harganya %s.</p>"
-            % (escape(kode or ""), diskon, masa, rupiah(t["harga"]))
+            "<p class=\"paket__catatan\"><strong>Pakai kode %s "
+            "di atas halaman.</strong> Harga langsung turun %d%% sejak kode dipakai. "
+            "Tanpa kode, harganya %s.</p>"
+            % (rincian, diskon, rupiah(t["harga"]))
         )
     else:
         angka = '<span class="paket__angka" data-harga data-paket="%s" data-harga-promo="0">%s%s</span>' % (
@@ -561,8 +585,15 @@ def blok_cerita():
 def blok_penutup(nomor):
     """Ajakan terakhir di panel navy, memuat harga yang berlaku sekarang."""
     t = TIER_UTAMA
-    diskon = next((k["diskon"] for k in KODE if k["kode"] == t["kode"]), 50)
-    masa = PROMO.get("masa_hari", 7)
+    daftar = kode_paket(t["kunci"])
+    diskon = daftar[0]["diskon"] if daftar else 50
+    if len(daftar) > 1:
+        rincian = " atau ".join(
+            '<span class="paket__kode">%s</span> (%d hari)' % (escape(k["kode"]), masa_kode(k))
+            for k in daftar
+        )
+    else:
+        rincian = '<span class="paket__kode">%s</span>' % escape(daftar[0]["kode"] if daftar else "")
     return f"""
 <section class="panel">
   <div class="wrap panel__isi">
@@ -579,7 +610,7 @@ def blok_penutup(nomor):
       <small>paket website umkm</small>
       <span class="panel__coret">{rupiah(t["harga"])}</span>
       <strong>{rupiah(t["harga_promo"])}</strong>
-      <p class="panel__kode">Pakai kode <span class="paket__kode">{escape(t["kode"])}</span> untuk mendapatkan harga ini. Potongan {diskon}% berlaku {masa} hari sejak kode dipakai.</p>
+      <p class="panel__kode">Pakai kode {rincian} untuk mendapatkan harga ini. Potongan {diskon}% berlaku sejak kode dipakai.</p>
     </div>
   </div>
 </section>
@@ -734,7 +765,8 @@ def halaman_paket():
     return kepala(
         "Paket jasa website UMKM | " + NAMA,
         "Tiga paket website: UMKM, company profile, dan custom. Kode promo memberi "
-        "potongan 50% selama tujuh hari. Isi tiap paket dan yang tidak termasuk ditulis terbuka.",
+        "potongan 50%, tujuh hari untuk kode yang diketik, empat belas hari untuk kode dari "
+        "tautan. Isi tiap paket dan yang tidak termasuk ditulis terbuka.",
         "paket",
         "/paket/",
         skema=(skema_umum(), skema_tanya()),

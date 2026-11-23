@@ -13,14 +13,22 @@
   "promo": {
     "aktif": true,
     "judul": "Punya kode promo",
-    "keterangan": "Masukkan kode dari teman atau dari unggahan saya. Diskon langsung aktif selama tujuh hari.",
+    "keterangan": "Masukkan kode dari teman atau dari unggahan saya. Diskon langsung aktif selama masa berlaku kodenya.",
     "masa_hari": 7,
     "kode": [
       {
         "kode": "UMKMMAJU",
         "paket": "umkm",
         "diskon": 50,
-        "label": "Website UMKM"
+        "label": "Website UMKM",
+        "masa_hari": 7
+      },
+      {
+        "kode": "THREADS50",
+        "paket": "umkm",
+        "diskon": 50,
+        "label": "Website UMKM",
+        "masa_hari": 14
       },
       {
         "kode": "MURAHBANGET",
