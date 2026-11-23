@@ -239,6 +239,43 @@
         "Cara pesan, alamat dapur, dan titik ambil yang jelas"
       ],
       "fakta": "Berdiri sejak 2014 di Kalideres. Bahan halal dan alami, tanpa pengawet, dibuat setelah pesanan masuk, dan seluruh produknya tanpa babi dan tanpa lemak babi."
+    },
+    {
+      "slug": "dessert-anyha",
+      "nama": "Dessert by Anyha",
+      "bidang": "Dessert dan minuman buah",
+      "kota": "Simpang IV Sipin, Jambi",
+      "url": "https://dessertby-anyha.pages.dev",
+      "domain": "dessertby-anyha.pages.dev",
+      "status": "live",
+      "ringkas": "Dessert dan minuman buah rumahan yang dirakit setelah pesanan masuk. Tiga menu berharga tetap, pesanan langsung lewat WhatsApp.",
+      "masalah": "Menu dan harganya masih berpindah lewat chat. Pembeli harus bertanya dulu untuk tahu isi dan harganya, padahal menunya cuma tiga dan harganya tetap.",
+      "solusi": "Tiga menu ditulis lengkap dengan isian dan catatan penyajian, harganya tertulis, dan tombol pesan WhatsApp tersedia di setiap bagian. Halaman tentang menjelaskan bahwa produknya dirakit setelah pesanan masuk, jadi tidak ada stok menganggur.",
+      "isi": [
+        "Katalog tiga menu beserta isian dan harga",
+        "Halaman tentang berisi cara kerja dan jam buka",
+        "Peta lokasi dan titik ambil di Simpang IV Sipin",
+        "Tombol pesan WhatsApp dengan pesan yang sudah terisi"
+      ],
+      "fakta": "Buka setiap hari 09.00 sampai 17.00. Pesanan jumlah banyak sebaiknya masuk sehari sebelumnya."
+    },
+    {
+      "slug": "dupa-keraton",
+      "nama": "Dupa Keraton",
+      "bidang": "Dupa premium",
+      "kota": "Klaten, Jawa Tengah",
+      "url": "https://dupa-keratonian.pages.dev",
+      "domain": "dupa-keratonian.pages.dev",
+      "ringkas": "Dua lini dupa dengan dua jenis harga. Lembar pesanan menghitung total sendiri, lalu mengirim pesanan lengkap ke WhatsApp.",
+      "masalah": "Variannya banyak dan harganya dua macam, eceran dan reseller. Kalau daftar harga ditulis biasa, pembeli harus menghitung sendiri lalu menulis pesanannya manual di WhatsApp.",
+      "solusi": "Katalog dikelompokkan per lini, dan lembar pesanan menempel di sampingnya. Pilih varian, pilih eceran atau reseller, atur jumlah, total dihitung sendiri, lalu tombol WhatsApp mengirim pesanan yang sudah lengkap.",
+      "isi": [
+        "Delapan aroma Dupa Keraton dan lini harian Dupa Lanus",
+        "Lembar pesanan dengan harga eceran dan reseller",
+        "Pilihan bahasa Indonesia dan Inggris",
+        "Halaman warisan dan penawaran reseller"
+      ],
+      "fakta": "Dupa Keraton Rp35.000 eceran (Rp28.000 reseller), Dupa Lanus Rp10.000 eceran (Rp7.800 reseller). Pengiriman ke seluruh dunia."
     }
   ],
   "paket": [

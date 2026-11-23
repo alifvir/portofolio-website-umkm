@@ -11,8 +11,8 @@ bagian cerita, dan akordeon tanya jawab.
 
 | Halaman | Berkas | Isi |
 |---|---|---|
-| Beranda | `index.html` | Hero, empat fakta, empat contoh situs, empat paket, kredensial, cerita, empat langkah, tanya jawab, ajakan penutup |
-| Portofolio | `portofolio/index.html` | Empat studi kasus, tiap proyek punya tangkapan layar lebar dan telepon |
+| Beranda | `index.html` | Hero, empat fakta, enam contoh situs, tiga paket, kredensial, cerita, empat langkah, tanya jawab, ajakan penutup |
+| Portofolio | `portofolio/index.html` | Enam studi kasus, tiap proyek punya tangkapan layar lebar dan telepon |
 | Paket | `paket/index.html` | Empat paket, yang tidak termasuk, urutan pengerjaan, tanya jawab |
 | Kontak | `kontak/index.html` | Nomor WhatsApp, hal yang perlu disebutkan, alternatif tanpa jasa |
 | 404 | `404.html` | Halaman tidak ditemukan |
@@ -181,7 +181,7 @@ beranda, dan entri sitemap akan kembali sendiri. Semua teksnya masih tersimpan d
 data/site.json      semua teks, harga, tier, daftar proyek, link WhatsApp, tanya jawab
 assets/css/         style.css (token, alasan, angka kontras ada di DESIGN.md)
 assets/js/          site.js (menu ponsel dan hitungan promo)
-assets-src/         tangkapan layar asli empat situs klien, PNG 1280 dan 390
+assets-src/         tangkapan layar asli enam situs klien, PNG 1280 dan 390
 dist/               hasil build, yang diunggah ke hosting
 build.py            penyusun halaman, pemroses gambar, sitemap, skema JSON-LD
 DESIGN.md           arah visual, token, kontras terukur, bug yang sudah kena

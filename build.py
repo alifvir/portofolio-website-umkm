@@ -742,7 +742,7 @@ def halaman_portofolio(g):
     return kepala(
         "Portofolio website UMKM | " + NAMA,
         jumlah().capitalize()
-        + " website UMKM yang sudah online, dari toko kelontong sampai dapur kue. "
+        + " website UMKM yang sudah online, dari toko kelontong sampai dupa premium. "
         "Tampilan layar lebar dan ponsel, beserta alasan di balik susunannya.",
         "portofolio",
         "/portofolio/",

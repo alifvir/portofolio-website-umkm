@@ -124,8 +124,10 @@ Perbaikannya dua lapis:
 ## Foto
 
 Semua pratinjau memakai tangkapan layar asli situs klien, bukan iframe dan
-bukan gambar contoh. Iframe empat situs sekaligus berarti memuat empat situs
+bukan gambar contoh. Iframe enam situs sekaligus berarti memuat enam situs
 penuh di halaman pembuka, terlalu mahal untuk pengunjung dari WhatsApp.
+
+Keenam situs sudah online, jadi semua badge di kartu dan bingkai berstatus live.
 
 Setiap tangkapan dibuat **dua ukuran** (1100w dan 700w) dan dipilih lewat
 `srcset`. Terbukti: HP 390px DPR2 mengunduh varian 700w, bukan 1100w.
