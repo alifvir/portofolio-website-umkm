@@ -39,22 +39,33 @@ dan `harga_promo` bersama-sama supaya angkanya konsisten.
 Bilah navy di paling atas berisi formulir kode. Pengunjung mengetik kode, harga
 berubah seketika, dan hitungan mundur muncul.
 
-| Kode | Paket | Harga normal | Dengan kode | Masa berlaku |
-|---|---|---|---|---|
-| `UMKMMAJU` | Website UMKM | Rp500.000 | Rp250.000 | 7 hari |
-| `THREADS50` | Website UMKM | Rp500.000 | Rp250.000 | **14 hari** |
-| `MURAHBANGET` | Company Profile | Rp1.200.000 | Rp600.000 | 7 hari |
+| Kode | Paket | Harga normal | Dengan kode | Masa berlaku | Cara masuk |
+|---|---|---|---|---|---|
+| `UMKMMAJU` | Website UMKM | Rp500.000 | Rp250.000 | 7 hari | diketik atau tautan |
+| `THREADS50` | Website UMKM | Rp500.000 | Rp250.000 | **14 hari** | **hanya tautan** |
+| `MURAHBANGET` | Company Profile | Rp1.200.000 | Rp600.000 | 7 hari | diketik atau tautan |
 
 Masa berlaku bisa beda per kode: isi `masa_hari` pada entri kode. Kode tanpa `masa_hari`
 ikut nilai global `promo.masa_hari`.
 
-`THREADS50` khusus kampanye Threads, dan sengaja **14 hari, bukan 7**. Alasannya: calon yang
-membuka tautan hari ini sering baru punya dananya di hari ke-10, dan pola satu perangkat
-membuat promo hangus selamanya setelah lewat. `UMKMMAJU` tetap 7 hari karena itu kode yang
-disebar umum, bukan dari percakapan langsung.
+### Kode khusus tautan
 
-Kalau nanti masa berlaku `THREADS50` diubah, angka itu otomatis ikut di kartu paket dan panel
-penutup, karena `build.py` membacanya dari `site.json`.
+`THREADS50` diberi penanda `"hanya_tautan": true`. Akibatnya:
+
+- **Tidak pernah dicetak** di halaman. Kartu paket, panel penutup, dan halaman kontak hanya
+  menyebut kode yang tidak bertanda, jadi pengunjung melihat `UMKMMAJU` saja.
+- **Ditolak kalau diketik** di formulir, dengan pesan yang sama seperti kode tidak dikenal.
+- **Bisa** dipakai lewat `?kode=THREADS50`.
+- Namanya juga tidak ditulis di bilah atas saat aktif; yang tampil "Kode promo aktif, 50%".
+  Kolom formulir tidak diisi otomatis untuk kode bertanda ini.
+
+Batas jujurnya: kode ini **tetap terbaca di view-source**, karena tanpa server kode harus
+dikirim ke peramban untuk dicocokkan. Penandanya mencegah kode tampil di layar dan mencegah
+disebar dari formulir, bukan mencegah orang yang sengaja mengintip. Kalau perlu benar-benar
+rahasia, harus ada backend.
+
+`THREADS50` sengaja **14 hari, bukan 7**: calon yang membuka tautan hari ini sering baru punya
+dananya di hari ke-10, dan pola satu perangkat membuat promo hangus selamanya setelah lewat.
 
 ### Tautan referal: `?kode=`
 

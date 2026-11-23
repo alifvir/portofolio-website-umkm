@@ -218,7 +218,11 @@
     if (pesan) pesan.hidden = true;
 
     if (teksAktif) {
-      teksAktif.textContent = "Kode " + cocok.kode + " aktif, " + cocok.diskon + "%";
+      /* Kode kampanye tidak ditulis di bilah atas, supaya tidak ikut terbaca
+         orang lain di layar. Yang tampil hanya besar potongannya. */
+      teksAktif.textContent = cocok.hanya_tautan
+        ? "Kode promo aktif, " + cocok.diskon + "%"
+        : "Kode " + cocok.kode + " aktif, " + cocok.diskon + "%";
       teksAktif.setAttribute("title", "Berlaku untuk " + cocok.label);
     }
 
@@ -275,9 +279,19 @@
     return null;
   }
 
+  /* Kode kampanye bertanda `hanya_tautan` cuma boleh masuk lewat ?kode=.
+     Kalau diketik di formulir, diperlakukan seperti kode tidak dikenal, supaya
+     kode itu tidak bisa disebar ulang dari halaman. */
+  function cariKodeKetik(isi) {
+    var cocok = cariKode(isi);
+    if (cocok && cocok.hanya_tautan) return null;
+    return cocok;
+  }
+
   /* Dipakai dua pintu: formulir di bilah atas, dan tautan referal ?kode=...
-     Keduanya harus berperilaku sama, termasuk penolakan klaim kedua. */
-  function klaim(mentah) {
+     Keduanya berbagi penolakan klaim kedua, tapi pintunya beda: formulir
+     menolak kode `hanya_tautan`, tautan tidak. */
+  function klaim(mentah, dariTautan) {
     /* Sudah pernah klaim di perangkat ini? Tolak, apa pun kodenya. */
     var lama = baca();
     if (lama) {
@@ -299,7 +313,7 @@
       return false;
     }
 
-    var cocok = cariKode(isi);
+    var cocok = dariTautan ? cariKode(isi) : cariKodeKetik(isi);
     if (!cocok) {
       tulisPesan("Kode tidak dikenali. Coba periksa lagi hurufnya.", true);
       return false;
@@ -320,12 +334,12 @@
   if (form) {
     form.addEventListener("submit", function (e) {
       e.preventDefault();
-      klaim(input && input.value);
+      klaim(input && input.value, false);
     });
   }
 
-  /* Tautan referal: /?kode=UMKMMAJU langsung mengaktifkan promo, tanpa
-     mengetik. Kode yang sama lewat formulir tetap jalan seperti biasa. */
+  /* Tautan referal: /?kode=... langsung mengaktifkan promo, tanpa mengetik.
+     Kode bertanda `hanya_tautan` hanya bisa masuk lewat pintu ini. */
   function kodeDariTautan() {
     var cocok;
     try {
@@ -341,8 +355,11 @@
   if (!tersimpan) {
     var dariTautan = kodeDariTautan();
     if (dariTautan) {
-      if (input) input.value = dariTautan;
-      if (!klaim(dariTautan)) terapkan(false, null);
+      /* Kode kampanye tidak ditaruh di kolom formulir, supaya tidak ikut
+         terbaca orang lain yang melihat layar. Kode biasa tetap ditampilkan. */
+      var cocokTautan = cariKode(dariTautan);
+      if (input && cocokTautan && !cocokTautan.hanya_tautan) input.value = dariTautan;
+      if (!klaim(dariTautan, true)) terapkan(false, null);
     } else {
       terapkan(false, null);
     }

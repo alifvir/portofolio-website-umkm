@@ -28,7 +28,8 @@
         "paket": "umkm",
         "diskon": 50,
         "label": "Website UMKM",
-        "masa_hari": 14
+        "masa_hari": 14,
+        "hanya_tautan": true
       },
       {
         "kode": "MURAHBANGET",

@@ -236,6 +236,7 @@ def data_promo():
                 "diskon": k["diskon"],
                 "label": k["label"],
                 "masa_hari": masa_kode(k),
+                "hanya_tautan": bool(k.get("hanya_tautan")),
             }
             for k in KODE
         ],
@@ -442,9 +443,26 @@ def masa_kode(k):
     return k.get("masa_hari") or PROMO.get("masa_hari", 7)
 
 
+def kode_tampil(k):
+    """True kalau kode boleh disebut di halaman.
+
+    Kode bertanda `hanya_tautan` sengaja tidak pernah dicetak: itu kode kampanye
+    yang hanya berlaku lewat tautan yang kita kirim sendiri, mis. Threads.
+    """
+    return not k.get("hanya_tautan")
+
+
 def kode_paket(kunci):
-    """Semua kode yang berlaku untuk satu paket, urut sesuai site.json."""
-    return [k for k in KODE if k["paket"] == kunci]
+    """Kode yang berlaku untuk satu paket dan boleh disebut di halaman."""
+    return [k for k in KODE if k["paket"] == kunci and kode_tampil(k)]
+
+
+def rincian_kode(daftar):
+    """Kode tampil beserta durasinya, mis. `UMKMMAJU (7 hari)`."""
+    return " atau ".join(
+        '<span class="paket__kode">%s</span> (%d hari)' % (escape(k["kode"]), masa_kode(k))
+        for k in daftar
+    )
 
 
 def kartu_paket(t):
@@ -476,21 +494,14 @@ def kartu_paket(t):
             '<span class="promo__dot" aria-hidden="true"></span>'
             'sisa <span data-sisa="%s">0 hari</span></span>' % (t["kunci"], t["kunci"])
         )
-        # Kalau satu paket punya beberapa kode, keduanya ditulis beserta durasinya,
-        # karena durasinya bisa berbeda (kode dari tautan lebih panjang).
-        if len(daftar) > 1:
-            rincian = " atau ".join(
-                '<span class="paket__kode">%s</span> (%d hari)' % (escape(k["kode"]), masa_kode(k))
-                for k in daftar
-            )
-        else:
-            rincian = '<span class="paket__kode">%s</span>' % escape(daftar[0]["kode"] if daftar else "")
+        # Hanya kode yang boleh disebut yang ditulis. Kode kampanye bertanda
+        # `hanya_tautan` tidak pernah muncul di halaman.
         catatan = (
             "<p class=\"paket__catatan\"><strong>Pakai kode %s "
             "di atas halaman.</strong> Harga langsung turun %d%% sejak kode dipakai. "
             "Tanpa kode, harganya %s.</p>"
-            % (rincian, diskon, rupiah(t["harga"]))
-        )
+            % (rincian_kode(daftar), diskon, rupiah(t["harga"]))
+        ) if daftar else ""
     else:
         angka = '<span class="paket__angka" data-harga data-paket="%s" data-harga-promo="0">%s%s</span>' % (
             t["kunci"],
@@ -587,13 +598,7 @@ def blok_penutup(nomor):
     t = TIER_UTAMA
     daftar = kode_paket(t["kunci"])
     diskon = daftar[0]["diskon"] if daftar else 50
-    if len(daftar) > 1:
-        rincian = " atau ".join(
-            '<span class="paket__kode">%s</span> (%d hari)' % (escape(k["kode"]), masa_kode(k))
-            for k in daftar
-        )
-    else:
-        rincian = '<span class="paket__kode">%s</span>' % escape(daftar[0]["kode"] if daftar else "")
+    rincian = rincian_kode(daftar)
     return f"""
 <section class="panel">
   <div class="wrap panel__isi">
@@ -892,7 +897,9 @@ def halaman_kontak():
             escape(k["kode"]),
         )
         for k in KODE
-        if k["paket"] in TIER_PETA and TIER_PETA[k["paket"]].get("harga_promo")
+        if k["paket"] in TIER_PETA
+        and TIER_PETA[k["paket"]].get("harga_promo")
+        and kode_tampil(k)
     )
     return kepala(
         f"Kontak | {NAMA}, jasa website UMKM Tangerang",
