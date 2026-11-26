@@ -11,8 +11,8 @@ bagian cerita, dan akordeon tanya jawab.
 
 | Halaman | Berkas | Isi |
 |---|---|---|
-| Beranda | `index.html` | Hero, empat fakta, enam contoh situs, tiga paket, kredensial, cerita, empat langkah, tanya jawab, ajakan penutup |
-| Portofolio | `portofolio/index.html` | Enam studi kasus, tiap proyek punya tangkapan layar lebar dan telepon |
+| Beranda | `index.html` | Hero, empat fakta, lima contoh situs, tiga paket, kredensial, cerita, empat langkah, tanya jawab, ajakan penutup |
+| Portofolio | `portofolio/index.html` | Lima studi kasus, tiap proyek punya tangkapan layar lebar dan telepon |
 | Paket | `paket/index.html` | Empat paket, yang tidak termasuk, urutan pengerjaan, tanya jawab |
 | Kontak | `kontak/index.html` | Nomor WhatsApp, hal yang perlu disebutkan, alternatif tanpa jasa |
 | 404 | `404.html` | Halaman tidak ditemukan |
